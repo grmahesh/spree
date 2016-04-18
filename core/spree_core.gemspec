@@ -4,7 +4,7 @@ require_relative 'lib/spree/core/version.rb'
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_core'
-  s.version     = Spree.version
+  s.version     = '~> 3.0.7'
   s.summary     = 'The bare bones necessary for Spree.'
   s.description = 'The bare bones necessary for Spree.'
 

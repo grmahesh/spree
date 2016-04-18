@@ -4,7 +4,7 @@ require_relative '../core/lib/spree/core/version.rb'
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_sample'
-  s.version     = Spree.version
+  s.version     = '~> 3.0.7'
   s.summary     = 'Sample data (including images) for use with Spree.'
   s.description = 'Required dependency for Spree'
 
@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', s.version
+  s.add_dependency 'spree_core', :path => '../core'
 end

@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_api', '~> 3.0.7'
-  s.add_dependency 'spree_core', '~> 3.0.7'
+  s.add_dependency 'spree_api', :path => '../api'
+  s.add_dependency 'spree_core', :path => '../core'
 
   s.add_dependency 'bootstrap-sass',  '~> 3.3'
   s.add_dependency 'jquery-rails',    '~> 4.1'
