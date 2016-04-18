@@ -2,6 +2,7 @@ Spree::Core::Engine.add_routes do
   namespace :admin, path: Spree.admin_path do
     get '/search/users', to: "search#users", as: :search_users
     get '/search/products', to: "search#products", as: :search_products
+    get '/search/greetings', to: "search#greetings", as: :search_greetings
 
     resources :promotions do
       resources :promotion_rules
@@ -24,6 +25,24 @@ Spree::Core::Engine.add_routes do
           post :update_positions
         end
       end
+      resources :images do
+        collection do
+          post :update_positions
+        end
+      end
+      member do
+        post :clone
+        get :stock
+      end
+      resources :variants do
+        collection do
+          post :update_positions
+        end
+      end
+      resources :variants_including_master, only: [:update]
+    end
+    
+    resources :greetings do
       resources :images do
         collection do
           post :update_positions

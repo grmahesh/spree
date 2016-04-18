@@ -3,6 +3,7 @@ Spree::Core::Engine.add_routes do
   # those routes are needed for mailers
   root to: 'home#index'
   resources :products, only: [:index, :show]
+  resources :greetings, only: [:index, :show]
 end
 
 Spree::Core::Engine.draw_routes
