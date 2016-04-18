@@ -4,7 +4,7 @@ require_relative '../core/lib/spree/core/version.rb'
 
 Gem::Specification.new do |s|
   s.name        = "spree_cmd"
-  s.version     = '~> 3.0.7'
+  s.version     = Spree.version
   s.authors     = ['Chris Mar']
   s.email       = ['chris@spreecommerce.com']
   s.homepage    = 'http://spreecommerce.com'

@@ -4,7 +4,7 @@ require_relative '../core/lib/spree/core/version.rb'
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_frontend'
-  s.version     = '~> 3.0.7'
+  s.version     = Spree.version
   s.summary     = 'Frontend e-commerce functionality for the Spree project.'
   s.description = s.summary
 
@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_api', :path => '../api'
-  s.add_dependency 'spree_core', :path => '../core'
+  s.add_dependency 'spree_api', s.version
+  s.add_dependency 'spree_core', s.version
 
   s.add_dependency 'bootstrap-sass',  '>= 3.3.5.1', '< 3.4'
   s.add_dependency 'canonical-rails', '~> 0.0.4'
