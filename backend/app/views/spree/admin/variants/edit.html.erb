@@ -1,8 +1,9 @@
 <%= render partial: 'spree/admin/shared/product_tabs', locals: { current: :variants } %>
+<%= render partial: 'spree/admin/shared/greetingcard_tabs', locals: { current: :variants } %>
 
 <%= render partial: 'spree/admin/shared/error_messages', locals: { target: @variant } %>
 
-<%= form_for [:admin, @product, @variant] do |f| %>
+<%= form_for [:admin, @product, @variant, @greetingcard] do |f| %>
   <fieldset>
     <div data-hook="admin_variant_edit_form">
       <%= render partial: 'form', locals: { f: f } %>

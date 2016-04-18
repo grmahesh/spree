@@ -4,7 +4,7 @@ require_relative '../core/lib/spree/core/version.rb'
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_frontend'
-  s.version     = Spree.version
+  s.version     = '~> 3.0.7'
   s.summary     = 'Frontend e-commerce functionality for the Spree project.'
   s.description = s.summary
 

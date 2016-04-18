@@ -8,6 +8,7 @@
       <tr>
         <th><%= Spree.t(:sku) %></th>
         <th><%= Spree.t(:product) %></th>
+        <th><%= Spree.t(:greetingcard) %></th>
         <th><%= Spree.t(:options) %></th>
         <th><%= Spree.t(:adjustment) %></th>
       </tr>
@@ -16,6 +17,7 @@
       <tr data-hook="inventory_row">
         <td><%= @variant.sku %></td>
         <td><%= @variant.product.name %></td>
+        <td><%= @variant.greetingcard.name %></td>
         <td><%= variant_options @variant %></td>
         <td>
           <%= text_field :level, :adjustment, :class => 'quantity form-control' %>

@@ -35,6 +35,18 @@ module Spree
         expires_in 15.minutes, public: true
         headers['Surrogate-Control'] = "max-age=#{15.minutes}"
       end
+      
+      def greetingcards
+        if params[:ids]
+          @greetingcards = Greetingcard.where(id: params[:ids].split(",").flatten)
+        else
+          @greetingcards = Greetingcard.ransack(params[:q]).result
+        end
+
+        @greetingcards = @greetingcards.distinct.page(params[:page]).per(params[:per_page])
+        expires_in 15.minutes, public: true
+        headers['Surrogate-Control'] = "max-age=#{15.minutes}"
+      end
     end
   end
 end

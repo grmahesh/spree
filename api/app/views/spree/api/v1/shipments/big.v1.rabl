@@ -12,7 +12,7 @@ child inventory_units: :inventory_units do
 
   child :variant do
     extends "spree/api/v1/variants/small"
-    attributes :product_id
+    attributes :product_id, :greetingcard_id
     child(images: :images) { extends "spree/api/v1/images/show" }
   end
 

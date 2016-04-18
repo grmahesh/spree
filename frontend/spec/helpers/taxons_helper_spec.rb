@@ -13,5 +13,14 @@ describe Spree::TaxonsHelper, :type => :helper do
     child_taxon.products << product_3
 
     expect(taxon_preview(taxon.reload)).to eql([product_1, product_2, product_3])
+    
+    greetingcard_1 = create(:greetingcard)
+    greetingcard_2 = create(:greetingcard)
+    greetingcard_3 = create(:greetingcard)
+    taxon.greetingcards << greetingcard_1
+    taxon.greetingcards << greetingcard_2
+    child_taxon.greetingcards << greetingcard_3
+
+    expect(taxon_preview(taxon.reload)).to eql([greetingcard_1, greetingcard_2, greetingcard_3])
   end
 end

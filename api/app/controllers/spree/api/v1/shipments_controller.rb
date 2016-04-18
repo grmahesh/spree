@@ -145,10 +145,12 @@ module Spree
             inventory_units: {
               line_item: {
                 product: {},
+                greetingcard: {},
                 variant: {},
               },
               variant: {
                 product: {},
+                greetingcard: {},
                 default_price: {},
                 option_values: {
                   option_type: {},

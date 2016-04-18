@@ -8,6 +8,11 @@ module Spree
         @stock_movements = stock_location.stock_movements.recent.
           includes(:stock_item => { :variant => :product }).
           page(params[:page])
+        
+        @stock_movements = stock_location.stock_movements.recent.
+          includes(:stock_item => { :variant => :greetingcard }).
+          page(params[:page])
+        
       end
 
       def new

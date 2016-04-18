@@ -16,6 +16,12 @@
   </ul>
 <% end %>
 
+<% if can? :admin, Spree::Greetingcard %>
+  <ul class="nav nav-sidebar">
+    <%= main_menu_tree Spree.t(:greetingcards), icon: "th-large", sub_menu: "greetingcard", url: "#sidebar-greetingcard" %>
+  </ul>
+<% end %>
+
 <% if can? :admin, Spree::Admin::ReportsController %>
   <ul class="nav nav-sidebar">
     <%= tab *Spree::BackendConfiguration::REPORT_TABS, icon: 'file'  %>

@@ -11,14 +11,17 @@ module Spree
 
       def location_after_destroy
         admin_product_images_url(@product)
+        admin_greetingcard_images_url(@greetingcard)
       end
 
       def location_after_save
         admin_product_images_url(@product)
+        admin_greetingcard_images_url(@greetingcard)
       end
 
       def load_index_data
         @product = Product.friendly.includes(*variant_index_includes).find(params[:product_id])
+        @greetingcard = Greetingcard.friendly.includes(*variant_index_includes).find(params[:greetingcard_id])
       end
 
       def load_edit_data
@@ -27,6 +30,11 @@ module Spree
           [variant.sku_and_options_text, variant.id]
         end
         @variants.insert(0, [Spree.t(:all), @product.master.id])
+        @greetingcard = Greetingcard.friendly.includes(*variant_edit_includes).find(params[:greetingcard_id])
+        @variants = @greetingcard.variants.map do |variant|
+          [variant.sku_and_options_text, variant.id]
+        end
+        @variants.insert(0, [Spree.t(:all), @greetingcard.master.id])
       end
 
       def set_viewable

@@ -49,4 +49,5 @@ var set_taxon_select = function(selector){
 
 $(document).ready(function () {
   set_taxon_select('#product_taxon_ids')
+  set_taxon_select('#greetingcard_taxon_ids')
 });

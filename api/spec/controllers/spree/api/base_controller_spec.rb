@@ -8,6 +8,7 @@ describe Spree::Api::BaseController, :type => :controller do
   controller(Spree::Api::BaseController) do
     def index
       render :text => { "products" => [] }.to_json
+      render :text => { "greetingcards" => [] }.to_json
     end
   end
 
@@ -72,6 +73,7 @@ describe Spree::Api::BaseController, :type => :controller do
     expect(subject).to receive(:authenticate_user).and_return(true)
     expect(subject).to receive(:load_user_roles).and_return(true)
     resource = Spree::Product.new
+    resource = Spree::Greetingcard.new
     resource.valid? # get some errors
     expect(subject).to receive(:index).and_raise(ActiveRecord::RecordInvalid.new(resource))
     get :index, token: 'exception-message'
@@ -92,5 +94,9 @@ describe Spree::Api::BaseController, :type => :controller do
 
   it "lets a subclass override the product associations that are eager-loaded" do
     expect(controller.respond_to?(:product_includes, true)).to be
+  end
+  
+  it "lets a subclass override the greetingcard associations that are eager-loaded" do
+    expect(controller.respond_to?(:greetingcard_includes, true)).to be
   end
 end

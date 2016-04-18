@@ -82,6 +82,16 @@ module Spree
           per_page_default = 15
           per_page_options = %w{5 15 30 45 60}
         end
+        
+        if @greetingcards && per_page_default = Spree::Config.admin_greetingcards_per_page
+          per_page_options = []
+          5.times do |amount|
+            per_page_options << (amount + 1) * Spree::Config.admin_greetingcards_per_page
+          end
+        else
+          per_page_default = 15
+          per_page_options = %w{5 15 30 45 60}
+        end
 
         select_tag(:per_page,
           options_for_select(per_page_options, params['per_page'] || per_page_default),
@@ -119,6 +129,12 @@ module Spree
         options[:method] = :post
         options[:icon] = :clone
         button_link_to '', clone_object_url(resource), options
+      end
+
+      def link_to_new(resource)
+        options[:data] = { action: 'new' }
+        options[:class] = "btn btn-success btn-sm"
+        link_to_with_icon('plus', Spree.t(:new), edit_object_url(resource))
       end
 
       def link_to_edit(resource, options={})

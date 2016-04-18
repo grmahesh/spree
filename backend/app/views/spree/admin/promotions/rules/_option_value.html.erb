@@ -14,6 +14,7 @@
 
 <script type="text/x-handlebars-template" id="promo-rule-option-value-option-values-select-name-template">
   <%= param_prefix %>[preferred_eligible_values][{{productId}}]
+  <%= param_prefix %>[preferred_eligible_values][{{greetingcardId}}]
 </script>
 
 <script type="text/x-handlebars-template" id="promo-rule-option-value-template">
@@ -25,6 +26,8 @@
       <div class="col-md-6">
         <label><%= Spree.t(:product) %></label>
       </div>
+      <label><%= Spree.t(:greetingcard) %></label>
+      </div>
       <div class="col-md-5">
         <label><%= Spree.t(:option_values) %></label>
       </div>
@@ -33,9 +36,11 @@
     <div class="panel-body row">
       <div class="col-md-6">
         <input class="js-promo-rule-option-value-product-select fullwidth" type="hidden" value="{{ productSelect.value }}">
+        <input class="js-promo-rule-option-value-greetingcard-select fullwidth" type="hidden" value="{{ greetingcardSelect.value }}">
       </div>
       <div class="col-md-6">
         <input class="js-promo-rule-option-value-option-values-select fullwidth" name="<%= param_prefix %>[preferred_eligible_values][{{ productSelect.value }}]" type="hidden" value={{optionValuesSelect.value}}>
+        <input class="js-promo-rule-option-value-option-values-select fullwidth" name="<%= param_prefix %>[preferred_eligible_values][{{ greetingcardSelect.value }}]" type="hidden" value={{optionValuesSelect.value}}>
       </div>
     </div>
   </div>

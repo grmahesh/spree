@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.name          = "spree_api"
   s.require_paths = ["lib"]
-  s.version       = Spree.version
+  s.version       = '~> 3.0.7'
 
   s.add_dependency 'spree_core', s.version
   s.add_dependency 'rabl', '~> 0.12.0'

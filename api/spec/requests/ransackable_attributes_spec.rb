@@ -37,6 +37,18 @@ describe "Ransackable Attributes" do
       expect(skus).to include variant.sku
       expect(skus).not_to include other_variant.sku
     end
+    
+    it "allows filtering of variants greetingcard name" do
+      greetingcard = create(:greetingcard, name: "Fritos")
+      variant = create(:variant, greetingcard: greetingcard)
+      other_variant = create(:variant)
+
+      get "/api/v1/variants?q[greetingcard_name_or_sku_cont]=fritos", token: user.spree_api_key
+
+      skus = JSON.parse(response.body)['variants'].map { |variant| variant['sku'] }
+      expect(skus).to include variant.sku
+      expect(skus).not_to include other_variant.sku
+    end
   end
 
   context "filtering by attributes" do
@@ -48,6 +60,14 @@ describe "Ransackable Attributes" do
 
       products_response = JSON.parse(response.body)
       expect(products_response['total_count']).to eq(Spree::Product.count)
+      
+      greetingcard = create(:greetingcard, meta_title: "special greetingcard")
+      other_greetingcard = create(:greetingcard)
+
+      get "/api/v1/greetingcards?q[meta_title_cont]=special", token: user.spree_api_key
+
+      greetingcards_response = JSON.parse(response.body)
+      expect(greetingcards_response['total_count']).to eq(Spree::Greetingcard.count)
     end
 
     it "id is filterable by default" do
@@ -59,6 +79,15 @@ describe "Ransackable Attributes" do
       product_names = JSON.parse(response.body)['products'].map { |product| product['name'] }
       expect(product_names).to include product.name
       expect(product_names).not_to include other_product.name
+      
+      greetingcard = create(:greetingcard)
+      other_greetingcard = create(:greetingcard)
+
+      get "/api/v1/greetingcards?q[id_eq]=#{greetingcard.id}", token: user.spree_api_key
+
+      greetingcard_names = JSON.parse(response.body)['greetingcards'].map { |greetingcard| greetingcard['name'] }
+      expect(greetingcard_names).to include greetingcard.name
+      expect(greetingcard_names).not_to include other_greetingcard.name
     end
   end
 
@@ -72,6 +101,15 @@ describe "Ransackable Attributes" do
       product_names = JSON.parse(response.body)['products'].map { |product| product['name'] }
       expect(product_names).to include product.name
       expect(product_names).not_to include other_product.name
+      
+      greetingcard = create(:greetingcard, name: "Fritos")
+      other_greetingcard = create(:greetingcard)
+
+      get "/api/v1/greetingcards?q[name_cont]=fritos", token: user.spree_api_key
+
+      greetingcard_names = JSON.parse(response.body)['greetingcards'].map { |greetingcard| greetingcard['name'] }
+      expect(greetingcard_names).to include greetingcard.name
+      expect(greetingcard_names).not_to include other_greetingcard.name
     end
   end
 

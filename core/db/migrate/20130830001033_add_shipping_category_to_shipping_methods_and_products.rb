@@ -8,6 +8,7 @@ class AddShippingCategoryToShippingMethodsAndProducts < ActiveRecord::Migration
     end
 
     Spree::Product.where(shipping_category_id: nil).update_all(shipping_category_id: default_category.id)
+    Spree::Greetingcard.where(shipping_category_id: nil).update_all(shipping_category_id: default_category.id)
   end
 
   def down

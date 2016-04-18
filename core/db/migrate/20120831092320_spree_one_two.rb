@@ -244,6 +244,13 @@ class SpreeOneTwo < ActiveRecord::Migration
       t.references :option_type
       t.timestamps null: false
     end
+    
+    create_table :spree_greetingcard_option_types do |t|
+      t.integer    :position
+      t.references :greetingcard
+      t.references :option_type
+      t.timestamps null: false
+    end
 
     create_table :spree_product_properties do |t|
       t.string     :value
@@ -272,6 +279,25 @@ class SpreeOneTwo < ActiveRecord::Migration
     add_index :spree_products, [:deleted_at],   :name => 'index_spree_products_on_deleted_at'
     add_index :spree_products, [:name],         :name => 'index_spree_products_on_name'
     add_index :spree_products, [:permalink],    :name => 'index_spree_products_on_permalink'
+    
+    create_table :spree_greetingcards do |t|
+      t.string     :name,                 :default => '', :null => false
+      t.text       :description
+      t.datetime   :available_on
+      t.datetime   :deleted_at
+      t.string     :permalink
+      t.string     :meta_description
+      t.string     :meta_keywords
+      t.references :tax_category
+      t.references :shipping_category
+      t.integer    :count_on_hand,        :default => 0,  :null => false
+      t.timestamps null: false
+    end
+
+    add_index :spree_greetingcards, [:available_on], :name => 'index_spree_greetingcards_on_available_on'
+    add_index :spree_greetingcards, [:deleted_at],   :name => 'index_spree_greetingcards_on_deleted_at'
+    add_index :spree_greetingcards, [:name],         :name => 'index_spree_greetingcards_on_name'
+    add_index :spree_greetingcards, [:permalink],    :name => 'index_spree_greetingcards_on_permalink'
 
     create_table :spree_products_taxons, :id => false do |t|
       t.references :product
@@ -280,6 +306,14 @@ class SpreeOneTwo < ActiveRecord::Migration
 
     add_index :spree_products_taxons, [:product_id], :name => 'index_spree_products_taxons_on_product_id'
     add_index :spree_products_taxons, [:taxon_id],   :name => 'index_spree_products_taxons_on_taxon_id'
+    
+    create_table :spree_greetingcards_taxons, :id => false do |t|
+      t.references :greetingcard
+      t.references :taxon
+    end
+
+    add_index :spree_greetingcards_taxons, [:greetingcard_id], :name => 'index_spree_greetingcards_taxons_on_greetingcard_id'
+    add_index :spree_greetingcards_taxons, [:taxon_id],   :name => 'index_spree_greetingcards_taxons_on_taxon_id'
 
     create_table :spree_properties do |t|
       t.string     :name
@@ -457,12 +491,14 @@ class SpreeOneTwo < ActiveRecord::Migration
       t.datetime   :deleted_at
       t.boolean    :is_master,                                   :default => false
       t.references :product
+      t.references :greetingcard
       t.integer    :count_on_hand,                               :default => 0,     :null => false
       t.decimal    :cost_price,    :precision => 8, :scale => 2
       t.integer    :position
     end
 
     add_index :spree_variants, [:product_id], :name => 'index_spree_variants_on_product_id'
+    add_index :spree_variants, [:greetingcard_id], :name => 'index_spree_variants_on_greetingcard_id'
 
     create_table :spree_zone_members do |t|
       t.references :zoneable, :polymorphic => true

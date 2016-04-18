@@ -6,8 +6,10 @@ module Spree
 
     let(:option_value) { create(:option_value) }
     let!(:product) { create(:product) }
+    let!(:greetingcard) { create(:greetingcard) }
     let!(:variant) do
       variant = product.master
+      variant = greetingcard.master
       variant.option_values << option_value
       variant
     end
@@ -67,6 +69,7 @@ module Spree
                                                                                :mini_url,
                                                                                :small_url,
                                                                                :product_url,
+                                                                               :greetingcard_url,
                                                                                :large_url])
 
     end
@@ -153,6 +156,7 @@ module Spree
     context "as an admin" do
       sign_in_as_admin!
       let(:resource_scoping) { { :product_id => variant.product.to_param } }
+      let(:resource_scoping) { { :greetingcard_id => variant.greetingcard.to_param } }
 
       # Test for #2141
       context "deleted variants" do
@@ -183,6 +187,7 @@ module Spree
         expect(option_value_ids).to match_array [option_value.id, other_value.id]
 
         expect(variant.product.variants.count).to eq(1)
+        expect(variant.greetingcard.variants.count).to eq(1)
       end
 
       it "can update a variant" do

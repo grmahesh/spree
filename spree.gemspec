@@ -4,7 +4,7 @@ require_relative 'core/lib/spree/core/version.rb'
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree'
-  s.version     = Spree.version
+  s.version     = '~> 3.0.7'
   s.summary     = 'Full-stack e-commerce framework for Ruby on Rails.'
   s.description = 'Spree is an open source e-commerce framework for Ruby on Rails. Join us on http://slack.spreecommerce.com'
 

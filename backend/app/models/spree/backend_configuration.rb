@@ -8,6 +8,11 @@ module Spree
     PRODUCT_TABS       ||= [:products, :option_types, :properties, :prototypes,
                             :variants, :product_properties, :taxonomies,
                             :taxons]
+                            
+    GREETINGCARD_TABS       ||= [:greetingcards, :option_types, :properties, :prototypes,
+                            :variants, :greetingcard_properties, :taxonomies,
+                            :taxons]
+                            
     REPORT_TABS        ||= [:reports]
     CONFIGURATION_TABS ||= [:configurations, :general_settings, :tax_categories,
                             :tax_rates, :zones, :countries, :states,

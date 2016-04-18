@@ -79,6 +79,8 @@ describe Spree::Admin::NavigationHelper, type: :helper do
     it 'returns correct klass for Spree model' do
       expect(klass_for(:products)).to eq(Spree::Product)
       expect(klass_for(:product_properties)).to eq(Spree::ProductProperty)
+      expect(klass_for(:greetingcards)).to eq(Spree::Greetingcard)
+      expect(klass_for(:greetingcard_properties)).to eq(Spree::GreetingcardProperty)
     end
 
     it 'returns correct klass for non-spree model' do

@@ -9,4 +9,9 @@
     <%= render :partial => 'spree/shared/products', :locals => { :products => @products } %>
   <% end %>
 </div>
+<div data-hook="homepage_greetingcards">
+  <% cache(cache_key_for_greetingcards) do %>
+    <%= render :partial => 'spree/shared/greetingcards', :locals => { :greetingcards => @greetingcards } %>
+  <% end %>
+</div>
 

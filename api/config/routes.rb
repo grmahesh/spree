@@ -8,6 +8,11 @@ Spree::Core::Engine.add_routes do
         resources :variants
         resources :product_properties
       end
+      
+      resources :greetingcards do
+        resources :images
+        resources :variants
+      end
 
       concern :order_routes do
         member do
@@ -113,6 +118,7 @@ Spree::Core::Engine.add_routes do
 
       put '/classifications', to: 'classifications#update', as: :classifications
       get '/taxons/products', to: 'taxons#products', as: :taxon_products
+      get '/taxons/greetingcards', to: 'taxons#greetingcards', as: :taxon_cards
     end
 
     match 'v:api/*path', to: redirect("/api/v1/%{path}"), via: [:get, :post, :put, :patch, :delete]

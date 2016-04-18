@@ -15,6 +15,18 @@ module Spree
         end
       end
       products
+      
+      greetingcards = taxon.active_greetingcards.select("spree_greetingcards.*, spree_greetingcards_taxons.position").limit(max)
+      if (greetingcards.size < max)
+        greetingcards_arel = Spree::Greetingcard.arel_table
+        taxon.descendants.each do |taxon|
+          to_get = max - greetingcards.length
+          greetingcards += taxon.active_greetingcards.select("spree_greetingcards.*, spree_greetingcards_taxons.position").
+                      where(greetingcards_arel[:id].not_in(greetingcards.map(&:id))).limit(to_get)
+          break if greetingcards.size >= max
+        end
+      end
+      greetingcards
     end
   end
 end

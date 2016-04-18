@@ -65,10 +65,18 @@
           <% else %>
             <%= link_to image_tag(item.variant.images.first.attachment.url(:small)), item.variant.product %>
           <% end %>
+          <% if item.variant.images.length == 0 %>
+            <%= link_to small_image(item.variant.greetingcard), item.variant.greetingcard %>
+          <% else %>
+            <%= link_to image_tag(item.variant.images.first.attachment.url(:small)), item.variant.greetingcard %>
+          <% end %>
         </td>
         <td data-hook="order_item_description">
           <h4><%= item.variant.product.name %></h4>
           <%= truncated_product_description(item.variant.product) %>
+          <%= "(" + item.variant.options_text + ")" unless item.variant.option_values.empty? %>
+          <h4><%= item.variant.greetingcard.name %></h4>
+          <%= truncated_greetingcard_description(item.variant.greetingcard) %>
           <%= "(" + item.variant.options_text + ")" unless item.variant.option_values.empty? %>
         </td>
         <td data-hook="order_item_price" class="lead text-primary price"><span><%= item.single_money.to_html %></span></td>

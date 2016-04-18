@@ -10,6 +10,7 @@ class RemoveDuplicatedIndexesFromMultiColumns < ActiveRecord::Migration
     remove_index :spree_orders_promotions, [:order_id, :promotion_id]
     add_index :spree_orders_promotions, :order_id
     remove_index :spree_products_promotion_rules, name: "index_products_promotion_rules_on_promotion_rule_id"
+    remove_index :spree_greetingcards_promotion_rules, name: "index_greetingcards_promotion_rules_on_promotion_rule_id"
     remove_index :spree_promotion_rules_users, name: "index_promotion_rules_users_on_user_id"
     remove_index :spree_properties_prototypes, :prototype_id
     remove_index :spree_stock_items, :stock_location_id

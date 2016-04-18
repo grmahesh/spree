@@ -8,4 +8,14 @@ ga('ec:addProduct', {               // Provide product details in a productField
   'price': '<%= line_item.price %>',
   'quantity': <%= line_item.quantity %>
 });
+
+ga('ec:addGreetingcard', {               // Provide greetingcard details in a greetingcardFieldObject.
+  'id': '<%= j (line_item.variant.sku || line_item.variant_id) %>',  // Greetingcard ID (string).
+  'name': '<%= j line_item.variant.greetingcard.name %>', // Greetingcard name (string).
+  'category': '',            // Greetingcard category (string).
+  'brand': '',                // Greetingcard brand (string).
+  'variant': '',               // Greetingcard variant (string).
+  'price': '<%= line_item.price %>',
+  'quantity': <%= line_item.quantity %>
+});
 <% end %>

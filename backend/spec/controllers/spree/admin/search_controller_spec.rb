@@ -52,5 +52,19 @@ describe Spree::Admin::SearchController, :type => :controller do
       expect(assigns[:products]).to include(product)
     end
   end
+  
+  describe "greetingcards" do
+    let(:greetingcard) { create(:greetingcard, :name => "Example Greetingcard") }
+
+    it "can find a greetingcard by its name "do
+      spree_xhr_get :greetingcards, :q => greetingcard.name
+      expect(assigns[:greetingcards]).to include(greetingcard)
+    end
+
+    it "can find a greetingcard by its slug "do
+      spree_xhr_get :greetingcards, :q => greetingcard.slug
+      expect(assigns[:greetingcards]).to include(greetingcard)
+    end
+  end
 
 end

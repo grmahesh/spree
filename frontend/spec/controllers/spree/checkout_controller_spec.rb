@@ -384,6 +384,7 @@ describe Spree::CheckoutController, type: :controller do
 
   context "When last inventory item has been purchased" do
     let(:product) { mock_model(Spree::Product, name: "Amazing Object") }
+    let(:greetingcard) { mock_model(Spree::Greetingcard, name: "Amazing Object") }
     let(:variant) { mock_model(Spree::Variant) }
     let(:line_item) { mock_model Spree::LineItem, insufficient_stock?: true, amount: 0 }
     let(:order) { create(:order) }
@@ -408,6 +409,7 @@ describe Spree::CheckoutController, type: :controller do
       it "should set flash message for no inventory" do
         expect(flash[:error]).to eq(
           Spree.t(:inventory_error_flash_for_insufficient_quantity, names: "'#{product.name}'"))
+          Spree.t(:inventory_error_flash_for_insufficient_quantity, names: "'#{greetingcard.name}'"))
       end
     end
   end

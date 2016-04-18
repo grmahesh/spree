@@ -69,6 +69,15 @@ module Spree
           @products = @products.page(params[:page]).per(params[:per_page] || 500)
           render "spree/api/v1/products/index"
         end
+        
+        def greetingcards
+          # Returns the greetingcards sorted by their position with the classification
+          # Greetingcards#index does not do the sorting.
+          taxon = Spree::Taxon.find(params[:id])
+          @greetingcards = taxon.greetingcards.ransack(params[:q]).result
+          @greetingcards = @greetingcards.page(params[:page]).per(params[:per_page] || 500)
+          render "spree/api/v1/greetingcards/index"
+        end
 
         private
 

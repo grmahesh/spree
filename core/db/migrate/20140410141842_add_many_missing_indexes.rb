@@ -12,6 +12,9 @@ class AddManyMissingIndexes < ActiveRecord::Migration
     add_index :spree_product_option_types, :option_type_id
     add_index :spree_product_option_types, :product_id
     add_index :spree_products_taxons, :position
+    add_index :spree_greetingcard_option_types, :option_type_id
+    add_index :spree_greetingcard_option_types, :greetingcard_id
+    add_index :spree_greetingcards_taxons, :position
     add_index :spree_promotions, :starts_at
     add_index :spree_stores, :url
   end

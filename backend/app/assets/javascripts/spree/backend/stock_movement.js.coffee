@@ -7,6 +7,7 @@ jQuery ->
       data: (term, page) ->
         q:
           variant_product_name_cont: term
+          variant_greetingcard_name_cont: term
         per_page: 50
         page: page
         token: Spree.api_key

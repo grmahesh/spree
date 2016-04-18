@@ -7,6 +7,7 @@ describe Spree::Admin::PromotionRulesController, :type => :controller do
 
   it "can create a promotion rule of a valid type" do
     spree_post :create, :promotion_id => promotion.id, :promotion_rule => { :type => "Spree::Promotion::Rules::Product" }
+    spree_post :create, :promotion_id => promotion.id, :promotion_rule => { :type => "Spree::Promotion::Rules::Greetingcard" }
     expect(response).to be_redirect
     expect(response).to redirect_to spree.edit_admin_promotion_path(promotion)
     expect(promotion.rules.count).to eq(1)

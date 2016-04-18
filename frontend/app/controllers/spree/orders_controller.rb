@@ -3,6 +3,7 @@ module Spree
     before_action :check_authorization
     rescue_from ActiveRecord::RecordNotFound, :with => :render_404
     helper 'spree/products', 'spree/orders'
+    helper 'spree/greetingcards', 'spree/orders'
 
     respond_to :html
 
@@ -11,6 +12,7 @@ module Spree
 
     def show
       @order = Order.includes(line_items: [variant: [:option_values, :images, :product]], bill_address: :state, ship_address: :state).find_by_number!(params[:id])
+      @order = Order.includes(line_items: [variant: [:option_values, :images, :greetingcard]], bill_address: :state, ship_address: :state).find_by_number!(params[:id])
     end
 
     def update
@@ -33,7 +35,7 @@ module Spree
     # Shows the current incomplete order from the session
     def edit
       @order = current_order || Order.incomplete.
-                                  includes(line_items: [variant: [:images, :option_values, :product]]).
+                                  includes(line_items: [variant: [:images, :option_values, :product, :greetingcard]]).
                                   find_or_initialize_by(guest_token: cookies.signed[:guest_token])
       associate_user
     end

@@ -8,5 +8,11 @@ module Spree
       expected = "<strong>" + ("a" * 95) + "</strong>..."
       expect(truncated_product_description(product)).to eq(expected)
     end
+    
+    it "truncates HTML correctly in greetingcard description" do
+      greetingcard = double(:description => "<strong>" + ("a" * 95) + "</strong> This content is invisible.")
+      expected = "<strong>" + ("a" * 95) + "</strong>..."
+      expect(truncated_greetingcard_description(greetingcard)).to eq(expected)
+    end
   end
 end

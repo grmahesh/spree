@@ -20,6 +20,7 @@ module Spree
         variant = line_item.variant
         parts = []
         parts << variant.product.name
+        parts << variant.greetingcard.name
         parts << "(#{variant.options_text})" if variant.options_text.present?
         parts << line_item.display_total
         safe_join(parts, "<br />".html_safe)

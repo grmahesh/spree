@@ -24,6 +24,7 @@ $.fn.variantAutocomplete = ->
       data: (term, page) ->
         q:
           product_name_or_sku_cont: term
+          greetingcard_name_or_sku_cont: term
         token: Spree.api_key
 
       results: (data, page) ->

@@ -14,6 +14,9 @@
         <td class="actions">
           <%= link_to_delete taxon, :url => remove_admin_product_taxon_url(@product, taxon), :name => icon('delete') + ' ' + Spree.t(:remove) %>
         </td>
+        <td class="actions">
+          <%= link_to_delete taxon, :url => remove_admin_greetingcard_taxon_url(@greetingcard, taxon), :name => icon('delete') + ' ' + Spree.t(:remove) %>
+        </td>
       </tr>
     <% end %>
     <% if taxons.empty? %>

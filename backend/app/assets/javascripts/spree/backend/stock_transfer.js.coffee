@@ -90,11 +90,14 @@ $ ->
 
     _search_transfer_variants: ->
       @build_select(Spree.url(Spree.routes.variants_api), 'product_name_or_sku_cont')
+      @build_select(Spree.url(Spree.routes.variants_api), 'greetingcard_name_or_sku_cont')
 
     _search_transfer_stock_items: ->
       stock_location_id = $('#transfer_source_location_id').val()
       @build_select(Spree.url(Spree.routes.stock_locations_api + "/#{stock_location_id}/stock_items"),
         'variant_product_name_or_variant_sku_cont')
+      @build_select(Spree.url(Spree.routes.stock_locations_api + "/#{stock_location_id}/stock_items"),
+        'variant_greetingcard_name_or_variant_sku_cont')
 
     format_variant_result: (result) ->
       "#{result.name} - #{result.sku}"

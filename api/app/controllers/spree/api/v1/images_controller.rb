@@ -46,7 +46,9 @@ module Spree
         def scope
           if params[:product_id]
             Spree::Product.friendly.find(params[:product_id])
-          elsif params[:variant_id]
+          elsif params[:greetingcard_id]
+            Spree::Greetingcard.friendly.find(params[:greetingcard_id])
+          else params[:variant_id]
             Spree::Variant.find(params[:variant_id])
           end
         end

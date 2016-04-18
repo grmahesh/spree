@@ -8,6 +8,8 @@ module Spree
       3.times do
         product = create(:product)
         product.taxons << taxon
+        greetingcard = create(:greetingcard)
+        greetingcard.taxons << taxon
       end
       taxon
     end
@@ -21,12 +23,18 @@ module Spree
         api_put :update, taxon_id: taxon, product_id: taxon.products.first, position: 1
         expect(response.status).to eq(401)
       end
+      it "cannot change the order of a greetingcard" do
+        api_put :update, taxon_id: taxon, greetingcard_id: taxon.greetingcards.first, position: 1
+        expect(response.status).to eq(401)
+      end
     end
 
     context "as an admin" do
       sign_in_as_admin!
 
       let(:last_product) { taxon.products.last }
+      
+      let(:last_greetingcard) { taxon.greetingcards.last }
 
       it "can change the order a product" do
         classification = taxon.classifications.find_by(product_id: last_product.id)
@@ -35,11 +43,20 @@ module Spree
         expect(response.status).to eq(200)
         expect(classification.reload.position).to eq(1)
       end
+      
+      it "can change the order a greetingcard" do
+        classification = taxon.classifications.find_by(greetingcard_id: last_greetingcard.id)
+        expect(classification.position).to eq(3)
+        api_put :update, taxon_id: taxon, greetingcard_id: last_greetingcard, position: 0
+        expect(response.status).to eq(200)
+        expect(classification.reload.position).to eq(1)
+      end
 
       it "should touch the taxon" do
         taxon.update_attributes(updated_at: Time.current - 10.seconds)
         taxon_last_updated_at = taxon.updated_at
         api_put :update, taxon_id: taxon, product_id: last_product, position: 0
+        api_put :update, taxon_id: taxon, greetingcard_id: last_greetingcard, position: 1
         taxon.reload
         expect(taxon_last_updated_at.to_i).to_not eq(taxon.updated_at.to_i)
       end

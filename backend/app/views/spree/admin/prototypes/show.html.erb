@@ -19,6 +19,25 @@
       </li>
     <% end %>
   </ul>
+  
+  <ul class="greetingcard-prototype-options">
+    <% @prototype.option_types.each do |ot| %>
+      <li class="option-type-field">
+        <b>
+          <%= check_box_tag "option_types[]", ot.id, (params[:option_types] || []).include?(ot.id.to_s), :id => "option_type_#{ot.id}", :class => "option-type" %>
+          <%= label_tag "option_type_#{ot.id}", ot.presentation %>
+        </b>
+        <ul class="option-type-values">
+          <% ot.option_values.each do |ov| %>
+          <li>
+            <%= check_box_tag "greetingcard[option_values_hash[#{ot.id}]][]", ov.id, params[:greetingcard] && (params[:greetingcard][:option_values_hash] || {}).values.flatten.include?(ov.id.to_s), id: "option_value_#{ov.id}", class: "option-value" %>
+            <%= label_tag "option_value_#{ov.id}", ov.presentation %>
+          </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
 
   <script type="text/javascript">
   //<![CDATA[

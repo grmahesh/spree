@@ -6,6 +6,7 @@ $.fn.optionValueAutocomplete = function (options) {
   options = options || {};
   var multiple = typeof(options.multiple) !== 'undefined' ? options.multiple : true;
   var productSelect = options.productSelect;
+  var greetingcardSelect = options.greetingcardSelect;
 
   this.select2({
     minimumInputLength: 3,
@@ -23,10 +24,12 @@ $.fn.optionValueAutocomplete = function (options) {
       datatype: 'json',
       data: function (term) {
         var productId = typeof(productSelect) !== 'undefined' ? $(productSelect).select2('val') : null;
+        var greetingcardId = typeof(greetingcardSelect) !== 'undefined' ? $(greetingcardSelect).select2('val') : null;
         return {
           q: {
             name_cont: term,
-            variants_product_id_eq: productId
+            variants_product_id_eq: productId,
+            variants_greetingcard_id_eq: greetingcardId
           },
           token: Spree.api_key
         };

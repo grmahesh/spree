@@ -3,6 +3,7 @@ module Spree
     module ApiHelpers
       ATTRIBUTES = [
         :product_attributes,
+        :greetingcard_attributes,
         :product_property_attributes,
         :variant_attributes,
         :image_attributes,
@@ -47,6 +48,12 @@ module Spree
       end
 
       @@product_attributes = [
+        :id, :name, :description, :price, :display_price, :available_on,
+        :slug, :meta_description, :meta_keywords, :shipping_category_id,
+        :taxon_ids, :total_on_hand
+      ]
+      
+      @@greetingcard_attributes = [
         :id, :name, :description, :price, :display_price, :available_on,
         :slug, :meta_description, :meta_keywords, :shipping_category_id,
         :taxon_ids, :total_on_hand

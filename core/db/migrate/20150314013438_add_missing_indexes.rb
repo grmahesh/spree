@@ -6,6 +6,10 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index   :spree_products_promotion_rules,
                         [:promotion_rule_id, :product_id],
                         name: 'index_products_promotion_rules_on_promotion_rule_and_product'
+                        
+    add_index   :spree_greetingcards_promotion_rules,
+                        [:promotion_rule_id, :greetingcard_id],
+                        name: 'index_greetingcards_promotion_rules_on_promotion_rule_and_greetingcard'
     add_index :spree_orders, :canceler_id
     add_index :spree_orders, :store_id
     add_index :spree_orders_promotions, [:promotion_id, :order_id]

@@ -92,7 +92,9 @@ module Spree
       LINKS ||= {}
       LINKS[:core] = "/developer/"
       LINKS[:products] = LINKS[:core] + "products"
+      LINKS[:greetingcards] = LINKS[:core] + "greetingcards"
       LINKS[:variants] = LINKS[:products] + "#variants"
+      LINKS[:variants] = LINKS[:greetingcards] + "#variants"
       LINKS[:prices] = LINKS[:core] + "#prices"
       LINKS[:orders] = LINKS[:core] + "orders"
       LINKS[:line_items] = LINKS[:orders] + "#line-items"
@@ -181,7 +183,11 @@ module Spree
         "mini_url"=>"/spree/products/1/mini/file.png?1370533476",
         "small_url"=>"/spree/products/1/small/file.png?1370533476",
         "product_url"=>"/spree/products/1/product/file.png?1370533476",
-        "large_url"=>"/spree/products/1/large/file.png?1370533476"}
+        "large_url"=>"/spree/products/1/large/file.png?1370533476"
+        "mini_url"=>"/spree/greetingcards/1/mini/file.png?1370533476",
+        "small_url"=>"/spree/greetingcards/1/small/file.png?1370533476",
+        "greetingcard_url"=>"/spree/greetingcards/1/greetingcard/file.png?1370533476",
+        "large_url"=>"/spree/greetingcards/1/large/file.png?1370533476"}
 
     OPTION_VALUE ||=
       {
@@ -229,6 +235,13 @@ module Spree
         "value"=>"Tote",
         "property_name"=>"bag_type"
        }
+       
+    GREETINGCARD_PROPERTY ||=
+      {
+        "id"=>1,
+        "greetingcard_id"=>1,
+        "value"=>"Tote",
+       }
 
     MESSAGE ||= {
       'message' => 'some:event',
@@ -267,12 +280,36 @@ module Spree
           "meta_description"=>nil,
           "meta_keywords"=>nil }
       }
+      
+      NEW_GREETINGCARD_EVENT ||=
+      {
+        "event" => 'greetingcard:new',
+        "event_id" => '510bfe8e7575e41e41000017',
+        "payload" => {
+          "id"=>1,
+          "name"=>"Example greetingcard",
+          "description"=> "Description",
+          "price"=>"15.99",
+          "available_on"=>"2012-10-17T03:43:57Z",
+          "permalink"=>"ruby-on-rails-tote",
+          "count_on_hand"=>10,
+          "meta_description"=>nil,
+          "meta_keywords"=>nil }
+      }
 
     NEW_PRODUCT_EVENT_RESPONSE ||= {
       "event_id" => '510bfe8e7575e41e41000004',
       "result" => 'OK',
       "details" => {
         "message" => "Product Added"
+      }
+    }
+    
+    NEW_GREETINGCARD_EVENT_RESPONSE ||= {
+      "event_id" => '510bfe8e7575e41e41000004',
+      "result" => 'OK',
+      "details" => {
+        "message" => "greetingcard Added"
       }
     }
 
@@ -290,10 +327,29 @@ module Spree
           "meta_keywords"=>nil
         }
       }
+      
+      NEW_GREETINGCARD_PUSH ||=
+      {
+        "message"=> 'greetingcard:new',
+        "payload" => {
+          "id"=>1123,
+          "name"=>"Example greetingcard",
+          "description"=> "Description",
+          "price"=>"15.99",
+          "available_on"=>"2012-10-17T03:43:57Z",
+          "permalink"=>"ruby-on-rails-tote",
+          "meta_description"=>nil,
+          "meta_keywords"=>nil
+        }
+      }
 
     temp ||= NEW_PRODUCT_PUSH.clone
     temp['message_id'] = 'guid'
     NEW_PRODUCT_PUSH_RESPONSE ||= temp
+    
+    temp ||= NEW_GREETINGCARD_PUSH.clone
+    temp['message_id'] = 'guid'
+    NEW_GREETINGCARD_PUSH_RESPONSE ||= temp
 
     UPDATE_PRODUCT_EVENT ||=
       {
@@ -310,12 +366,36 @@ module Spree
           "meta_description"=>nil,
           "meta_keywords"=>nil }
     }
+    
+    UPDATE_GREETINGCARD_EVENT ||=
+      {
+        "event" => 'greetingcard:update',
+        "event_id" => '510bfe8e7575e41e41000017',
+        "payload" => {
+          "id"=>1,
+          "name"=>"Example greetingcard",
+          "description"=> "Description",
+          "price"=>"15.99",
+          "available_on"=>"2012-10-17T03:43:57Z",
+          "permalink"=>"ruby-on-rails-tote",
+          "count_on_hand"=>10,
+          "meta_description"=>nil,
+          "meta_keywords"=>nil }
+    }
 
     UPDATE_PRODUCT_EVENT_RESPONSE ||= {
       "event_id" => '510bfe8e7575e41e41000004',
       "result" => 'OK',
       "details" => {
         "message" => "Product Updated"
+      }
+    }
+    
+    UPDATE_GREETINGCARD_EVENT_RESPONSE ||= {
+      "event_id" => '510bfe8e7575e41e41000004',
+      "result" => 'OK',
+      "details" => {
+        "message" => "greetingcard Updated"
       }
     }
 
@@ -336,6 +416,26 @@ module Spree
         "master" => VARIANT.merge("is_master" => true),
         "variants" => [VARIANT.merge("is_master" => false)],
         "product_properties"=> [PRODUCT_PROPERTY],
+        "option_types" => [OPTION_TYPE]
+      }
+      
+      GREETINGCARD ||=
+      {
+        "id"=>1,
+        "name"=>"Example greetingcard",
+        "description"=> "Description",
+        "price"=>"15.99",
+        "display_price"=>"$15.99",
+        "available_on"=>"2012-10-17T03:43:57Z",
+        "permalink"=>"ruby-on-rails-tote",
+        "meta_description"=>nil,
+        "meta_keywords"=>nil,
+        "taxon_ids" => [1,2,3],
+        "shipping_category_id" => 1,
+        "has_variants" => true,
+        "master" => VARIANT.merge("is_master" => true),
+        "variants" => [VARIANT.merge("is_master" => false)],
+        "greetingcard_properties"=> [GREETINGCARD_PROPERTY],
         "option_types" => [OPTION_TYPE]
       }
 
